@@ -1,8 +1,8 @@
 <template>
-    <section v-if="project">
+    <section v-if="project" class="text-center">
         <h1>{{ project.name_project }}</h1>
-        <img :src="`${store.imagBasePath}${project.cover_image}`" class="card-img-top w-50" :alt="project.name_project" v-if="(project.cover_image)">
-        <img src="https://via.placeholder.com/100x100.png?text=Placeholder" class="card-img-top w-50" :alt="project.title" v-else>
+            <img :src="`${store.imagBasePath}${project.cover_image}`" class="card-img-top w-50" :alt="project.name_project" v-if="(project.cover_image)">
+            <img src="https://via.placeholder.com/100x100.png?text=Placeholder" class="card-img-top w-50" :alt="project.title" v-else>
         <p>{{ project.description }}</p>
         <div v-if="project.category">
             <h5>Category: {{ project.category.name }}</h5>

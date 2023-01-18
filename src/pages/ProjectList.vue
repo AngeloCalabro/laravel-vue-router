@@ -4,8 +4,10 @@
         <div class="row">
             <div class="col-12 col-md-4" v-for="(project, index) in projects" :key="index">
                 <div class="card" style="width: 18rem;">
-                    <img :src="`${store.imagBasePath}${project.cover_image}`" class="card-img-top" :alt="project.title" v-if="(project.cover_image)">
-                    <img src="https://via.placeholder.com/100x100.png?text=Placeholder" class="card-img-top" :alt="project.title" v-else>
+                    <div class="h-75">
+                        <img :src="`${store.imagBasePath}${project.cover_image}`" class="card-img-top w-100" :alt="project.title" v-if="(project.cover_image)">
+                        <img src="https://via.placeholder.com/100x100.png?text=Placeholder" class="card-img-top w-100" :alt="project.title" v-else>
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">{{ project.name_project }}</h5>
                         <p class="card-text">{{ truncateContent(project.description)}}</p>
@@ -19,10 +21,13 @@
         <nav aria-label="Page navigation example">
             <ul class="pagination">
                 <li class="page-item">
-                    <a class="page-link" href="#">Previous</a>
+                    <a class="page-link" @click="prev()" href="#">Previous</a>
                 </li>
                 <li class="page-item" v-for="n in lastPage">
-                    <a class="page-link" @click="getProjects(n)">{{ n }}</a>
+                    <span class="page-link btn" @click="getProjects(n)">{{ n }}</span>
+                </li>
+                <li class="page-item">
+                    <span class="page-link btn" @click="next()" href="#">Next</span>
                 </li>
             </ul>
         </nav>
@@ -39,6 +44,7 @@ import { store } from '../store';
                 store,
                 projects: [],
                 currentPage: 1,
+                i: 0,
                 lastPage: null,
                 total: 0,
                 contentMaxLen: 100
@@ -52,6 +58,18 @@ import { store } from '../store';
                     this.lastPage = response.data.results.last_page;
                     this.total = response.data.results.total;
                 })
+            },
+            prev(){
+                if (this.currentPage > 1){
+                    this.currentPage--;
+                    this.getProjects(this.currentPage)
+                }
+            },
+            next(){
+                if (this.currentPage < this.lastPage) {
+                    this.currentPage++;
+                    this.getProjects(this.currentPage)
+                }
             },
             truncateContent(text) {
                 if (text.length > this.contentMaxLen) {
@@ -67,5 +85,11 @@ import { store } from '../store';
 </script>
 
 <style lang="scss" scoped>
+.card{
+    width: 300px;
+    height: 500px;
+    text-align: center;
+    margin: 1rem;
+}
 
 </style>
