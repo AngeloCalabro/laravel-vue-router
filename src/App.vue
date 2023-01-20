@@ -1,22 +1,22 @@
 <template>
   <AppHeader></AppHeader>
   <main class="container">
-    <!-- <h1>{{ title }}</h1> -->
     <router-view></router-view>
   </main>
+  <AppFooter></AppFooter>
     
 </template>
 
 <script>
 import AppHeader from './components/AppHeader.vue';
+import AppFooter from './components/AppFooter.vue';
 export default {
   name: 'App',
   components: {
-    AppHeader
+    AppHeader, AppFooter
   },
   data() {
     return {
-      title: 'Hi Vue!',
     }
   }
 }

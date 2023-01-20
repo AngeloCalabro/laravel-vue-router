@@ -36,7 +36,8 @@ const router = createRouter({
             component: SingleProject
         },
         {
-            path: "/*",
+            // path: "/*", ////deprecato
+            path: "/:pathMatch(.*)*",
             name: "not-found",
             component: NotFound
         }
